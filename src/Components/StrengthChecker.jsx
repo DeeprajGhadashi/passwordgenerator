@@ -28,7 +28,7 @@ const PasswordStrengthIndicator = ({ password = "" }) => {
     "very Weak": "red",
     "Poor": "red",
     "Medium": "yellow",
-    "Strong": "green",
+    "Strong": "#35f76c",
     "very Strong": "darkgreen",
   };
 
