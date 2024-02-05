@@ -1,5 +1,5 @@
 import React from 'react';
-import './passwordGenerator.css';
+import '../css/passwordGenerator.css';
 
 function Bagroundimage() {
   return (

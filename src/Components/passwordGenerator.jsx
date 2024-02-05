@@ -1,5 +1,5 @@
 import React from 'react'
-import './passwordGenerator.css';
+import '../css/passwordGenerator.css';
 import copyIcon from '../assets/copyIcon.svg';
 import { useState } from 'react';
 import { ToastContainer, toast } from "react-toastify";
