@@ -124,7 +124,7 @@ function PasswordGenerator() {
            <PasswordStrengthIndicator password={password}/>
           <div className="slider">
           <div className="range">
-            <input type="range" min={1} max={20}
+            <input type="range" min={4} max={20}
              value={passwordlength}
             onChange={(e)=>{
               setPasswordLength(e.target.value)
