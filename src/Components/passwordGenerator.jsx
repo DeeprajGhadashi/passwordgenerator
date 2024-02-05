@@ -1,10 +1,55 @@
 import React from 'react'
 import './passwordGenerator.css';
 import copyIcon from '../assets/copyIcon.svg';
+import { useState } from 'react';
 
-
+const uppercaseList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const lowercaseList = 'abcdefghijklmnopqrstuvwxyz';
+const numbersList = '0123456789';
+const symbolsList = '!@#$%^&*()?/';
 
 function PasswordGenerator() {
+  const [passwordlength, setPasswordLength] = useState(4);
+  const [password , setPassword] =useState ('');
+  const [lowerCase , setLowerCase ] =useState (false);
+  const [upperCase , setUpperCase] =useState (false);
+  const [symbols, setSymbols] =useState (false);
+  const [numbers , setNumbers] =useState (false);
+
+  const generatePassword = () => {
+
+    let characterList ='';
+
+    if(upperCase) {
+      characterList += uppercaseList;
+    }
+    if(lowerCase) {
+      characterList += lowercaseList;
+    }
+    if(numbers) {
+      characterList += numbersList;
+    }
+    if(symbols) {
+      characterList += symbolsList;
+    }
+    //console.log(characterList);
+    let tempPassword ='';
+    const characterListLength = characterList.length;
+
+    for(let i = 0 ; i < passwordlength; i++) {
+      const characterIndex = Math.round(Math.random()* characterListLength);
+      tempPassword += characterList.charAt(characterIndex); 
+    }
+    setPassword(tempPassword);
+  }
+
+  const copyPassword = async() => {
+      const copiedText = await navigator.clipboard.readText();
+      if(password.length) {
+        navigator.clipboard.writeText(password);
+      }
+  }
+ 
   return (
     
     <div className='container'>
@@ -12,9 +57,9 @@ function PasswordGenerator() {
       <div className='password-wrapper'>
         <div className='password-area'>
           <div className='password'>
-            <input type='text' disabled placeholder='Click on the Generate Password'/>
+            <input type='text' value={password} disabled placeholder='Click on the Generate Password'/>
             <button >
-            <img src={copyIcon} alt='copyicon' draggable='false' className='copyIcon'/>
+            <img src={copyIcon} alt='copyicon' draggable='false' className='copyIcon' onClick={copyPassword}/>
             </button>  
           </div>
         </div>
@@ -26,21 +71,33 @@ function PasswordGenerator() {
           <div className="checkboxes">
             <div className="left">
               <div className="checkbox-field">
-                <input type="checkbox" name='upper' id='upper' />
+                <input type="checkbox" name='upper' id='upper'
+                 checked={upperCase} 
+                 onChange={() => setUpperCase
+                 (!upperCase)} />
                 <label htmlFor='upper'>Include Upper Case(A-Z)</label>
               </div>
               <div className="checkbox-field">
-                <input type="checkbox" name='lower' id='lower' />
+                <input type="checkbox" name='lower' id='lower'
+                checked={lowerCase} 
+                onChange={() => setLowerCase
+                (!lowerCase)} />
                 <label htmlFor='lower'>Include Lower Case(a-z)</label>
               </div>
             </div>
             <div className="right">
               <div className="checkbox-field">
-                <input type="checkbox" name='numbers' id='numbers' />
+                <input type="checkbox" name='numbers' id='numbers'
+                 checked={numbers} 
+                 onChange={() => setNumbers
+                 (!numbers)} />
                 <label htmlFor='numbers'>Include Number(0-9)</label>
               </div>
               <div className="checkbox-field">
-                <input type="checkbox" name='symbols' id='symbols' />
+                <input type="checkbox" name='symbols' id='symbols' 
+                 checked={symbols} 
+                 onChange={() => setSymbols
+                 (!symbols)}/>
                 <label htmlFor='symbols'>Include Symbols(&-#)</label>
               </div>
             </div>
@@ -49,19 +106,22 @@ function PasswordGenerator() {
       </div>
 
       <div className="password-length">
-           <h3>Password Lenght</h3>
-          
+           <h3>Password Lenght</h3>   
           <div className="slider">
           <div className="range">
-            <input type="range" min={10} max={40}/>
+            <input type="range" min={4} max={20}
+             value={passwordlength}
+            onChange={(e)=>{
+              setPasswordLength(e.target.value)
+            }}/>
           </div>
-          <p className="rangeValue">20</p>
+          <p className="rangeValue">{passwordlength}</p>
        </div>
       </div>
 
       <div className="buttons">
-        <button type="button">Copy Password</button>
-        <button type="button">Generate Password</button>
+        <button type="button" onClick={copyPassword}>Copy Password</button>
+        <button type="button" onClick={generatePassword}>Generate Password</button>
       </div>
       
     </div>
