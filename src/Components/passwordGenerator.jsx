@@ -2,6 +2,9 @@ import React from 'react'
 import './passwordGenerator.css';
 import copyIcon from '../assets/copyIcon.svg';
 import { useState } from 'react';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import PasswordStrengthIndicator from './StrengthChecker';
 
 const uppercaseList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseList = 'abcdefghijklmnopqrstuvwxyz';
@@ -41,18 +44,29 @@ function PasswordGenerator() {
       tempPassword += characterList.charAt(characterIndex); 
     }
     setPassword(tempPassword);
-  }
+  };
 
   const copyPassword = async() => {
       const copiedText = await navigator.clipboard.readText();
       if(password.length) {
         navigator.clipboard.writeText(password);
+        toast.success(' Password copied to clipboard', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
-  }
+  };
  
+
   return (
-    
-    <div className='container'>
+  <>
+   <div className='container'>
       <h2 className='title'>Password Generator</h2>
       <div className='password-wrapper'>
         <div className='password-area'>
@@ -107,9 +121,10 @@ function PasswordGenerator() {
 
       <div className="password-length">
            <h3>Password Lenght</h3>   
+           <PasswordStrengthIndicator password={password}/>
           <div className="slider">
           <div className="range">
-            <input type="range" min={4} max={20}
+            <input type="range" min={1} max={20}
              value={passwordlength}
             onChange={(e)=>{
               setPasswordLength(e.target.value)
@@ -125,6 +140,9 @@ function PasswordGenerator() {
       </div>
       
     </div>
+    <ToastContainer />
+  </> 
+   
   )
 }
 
