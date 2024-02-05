@@ -6,7 +6,7 @@ const PasswordStrengthIndicator = ({ password = "" }) => {
 
     if (passwordLength < 1) {
       return "";
-    } else if (passwordLength < 4) {
+    } else if (passwordLength <= 4) {
       return "very Weak";
     } else if (passwordLength < 8) {
       return "Poor";
