@@ -34,6 +34,9 @@ To use the password generator:
 ## Deploy On Vercel.com
 Link - https://passwordgenerator-seven-kappa.vercel.app/
 
+## Linkedin Profile
+Link - https://www.linkedin.com/in/deepraj-ghadashi-1b4aa2200/
+
 ## User Interface
 - # Laptop View
   
